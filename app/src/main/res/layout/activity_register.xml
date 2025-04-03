@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="20dp"
+    android:background="@color/black">
+
+    <!-- Título -->
+    <TextView
+        android:id="@+id/tvRegisterTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Register"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:layout_marginBottom="20dp"/>
+
+    <!-- Switch para cambiar de tema -->
+    <Switch
+        android:id="@+id/switchThemeRegister"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:text=""/>
+
+    <!-- Campos de entrada -->
+    <EditText
+        android:id="@+id/etNombre"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Nombre"
+        android:background="@android:color/darker_gray"
+        android:textColor="@color/white"
+        android:padding="10dp"/>
+
+    <EditText
+        android:id="@+id/etEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Email"
+        android:background="@android:color/darker_gray"
+        android:textColor="@color/white"
+        android:padding="10dp"
+        android:inputType="textEmailAddress"/>
+
+    <EditText
+        android:id="@+id/etContrasenaRegister"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Contraseña"
+        android:background="@android:color/darker_gray"
+        android:textColor="@color/white"
+        android:padding="10dp"
+        android:inputType="textPassword"/>
+
+    <EditText
+        android:id="@+id/etTelefono"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Teléfono"
+        android:background="@android:color/darker_gray"
+        android:textColor="@color/white"
+        android:padding="10dp"
+        android:inputType="phone"/>
+
+    <!-- Botón de registro -->
+    <Button
+        android:id="@+id/btnRegistrarse"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Registrarse"
+        android:backgroundTint="@color/pink"
+        android:textColor="@color/white"
+        android:layout_marginTop="10dp"/>
+
+    <!-- Texto para volver al login -->
+    <TextView
+        android:id="@+id/tvIniciarSesion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="¿Ya tienes cuenta? Inicia sesión"
+        android:textColor="@color/pink"
+        android:layout_marginTop="10dp"
+        android:gravity="center"/>
+</LinearLayout>
