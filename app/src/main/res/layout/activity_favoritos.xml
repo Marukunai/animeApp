@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#121212"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="20dp">
+
+    <!-- Toggle modo oscuro -->
+    <RelativeLayout
+        android:id="@+id/toggleDarkLight"
+        android:layout_width="50dp"
+        android:layout_height="30dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/toggle_background"
+        android:padding="5dp">
+
+        <View
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentStart="true"
+            android:background="#121212" />
+    </RelativeLayout>
+
+    <!-- Título -->
+    <TextView
+        android:id="@+id/txtFavoritos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Mis Favoritos"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp" />
+
+    <!-- Lista de animes favoritos -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/txtFavoritos"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="60dp">
+
+        <LinearLayout
+            android:id="@+id/listaFavoritos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="20dp">
+
+            <!-- Ejemplo de tarjeta de anime favorito -->
+            <!-- Puedes duplicar esto dinámicamente en tu código con LayoutInflater -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="10dp"
+                android:background="#1E1E1E"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginHorizontal="5dp"
+                android:gravity="center_vertical"
+                android:backgroundTint="#1E1E1E"
+                android:clipToPadding="false"
+                android:elevation="2dp">
+
+                <ImageView
+                    android:id="@+id/imgAnimeFavorito"
+                    android:layout_width="60dp"
+                    android:layout_height="90dp"
+                    android:src="@drawable/narutoshippuden"
+                    android:scaleType="centerCrop"
+                    android:background="@drawable/profile_circle" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_marginStart="12dp">
+
+                    <TextView
+                        android:id="@+id/txtNombreAnime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Nombre del Anime"
+                        android:textColor="#FFFFFF"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/txtCategoriaAnime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Categoría"
+                        android:textColor="#AAAAAA"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+                <ImageButton
+                    android:id="@+id/btnQuitarFavorito"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:src="@drawable/ic_heart_filled"
+                    android:contentDescription="Quitar de favoritos"
+                    app:tint="#E53935" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- Barra de navegación inferior (si la usas aquí) -->
+    <!-- Puedes omitirla si ya estás dentro de una estructura de navegación principal -->
+</RelativeLayout>

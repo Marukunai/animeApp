@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/homeLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#121212">
+
+    <!-- Header -->
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:text="Anime App"
+        android:textSize="20sp"
+        android:textColor="@android:color/white"
+        android:gravity="center_vertical"
+        android:paddingStart="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Toggle Dark/Light Mode -->
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/switchTheme"
+        android:layout_width="50dp"
+        android:layout_height="30dp"
+        android:thumbTint="#121212"
+        android:trackTint="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="15dp" />
+
+    <!-- Search Bar -->
+    <EditText
+        android:id="@+id/searchBar"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:hint="Buscar anime..."
+        android:textColorHint="#888"
+        android:textColor="#fff"
+        android:background="@drawable/search_bar_bg"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
+        app:layout_constraintTop_toBottomOf="@id/tvTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="20dp" />
+
+    <!-- "Populares" Label -->
+    <TextView
+        android:id="@+id/popularesLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Populares"
+        android:textSize="18sp"
+        android:textColor="@android:color/white"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintTop_toBottomOf="@id/searchBar"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <!-- Anime Cards -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardAnime1"
+        android:layout_width="150dp"
+        android:layout_height="220dp"
+        android:src="@drawable/narutoshippuden"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="4dp"
+        app:layout_constraintTop_toBottomOf="@id/popularesLabel"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:background="#333" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardAnime2"
+        android:layout_width="150dp"
+        android:layout_height="220dp"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="4dp"
+        app:layout_constraintTop_toBottomOf="@id/popularesLabel"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="10dp"
+        android:background="#333" />
+
+    <!-- Card Titles -->
+    <TextView
+        android:id="@+id/tvAnime1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Anime 1"
+        android:textColor="#fff"
+        android:textSize="14sp"
+        app:layout_constraintTop_toBottomOf="@id/cardAnime1"
+        app:layout_constraintStart_toStartOf="@id/cardAnime1"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp" />
+
+    <TextView
+        android:id="@+id/tvAnime2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Anime 2"
+        android:textColor="#fff"
+        android:textSize="14sp"
+        app:layout_constraintTop_toBottomOf="@id/cardAnime2"
+        app:layout_constraintStart_toStartOf="@id/cardAnime2"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp" />
+
+    <!-- Bottom Navigation -->
+    <LinearLayout
+        android:id="@+id/bottomNav"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:background="#1E1E1E"
+        android:orientation="horizontal"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="🏠 Inicio"
+            android:textColor="#fff"
+            android:gravity="center"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="📺 Animes"
+            android:textColor="#fff"
+            android:gravity="center"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="⚙ Config"
+            android:textColor="#fff"
+            android:gravity="center"
+            android:textSize="16sp"/>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

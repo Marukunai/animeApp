@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="6dp"
+    android:backgroundTint="#1E1E1E">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="12dp">
+
+        <!-- Imagen del Anime -->
+        <ImageView
+            android:id="@+id/imgAnime"
+            android:layout_width="100dp"
+            android:layout_height="140dp"
+            android:scaleType="centerCrop"
+            android:src="narutoshippuden.jpg"
+            android:layout_alignParentStart="true"
+            android:background="@drawable/rounded_image"/>
+
+        <!-- Nombre del Anime -->
+        <TextView
+            android:id="@+id/txtNombreAnime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/imgAnime"
+            android:layout_marginStart="12dp"
+            android:text="Naruto Shippuden"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:textStyle="bold"/>
+
+        <!-- Categoría -->
+        <TextView
+            android:id="@+id/txtCategoriaAnime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txtNombreAnime"
+            android:layout_toEndOf="@id/imgAnime"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="4dp"
+            android:text="Acción, Aventura"
+            android:textColor="#BBBBBB"
+            android:textSize="14sp"/>
+
+        <!-- Botón de favorito (corazón) -->
+        <ImageButton
+            android:id="@+id/btnFavorito"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignTop="@id/txtNombreAnime"
+            android:background="?android:selectableItemBackgroundBorderless"
+            android:padding="8dp"
+            android:src="@drawable/ic_heart_filled"
+            android:contentDescription="Favorito"/>
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>

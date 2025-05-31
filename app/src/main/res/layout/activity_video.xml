@@ -1,12 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#000">
 
+    <!-- VideoView -->
     <VideoView
         android:id="@+id/videoView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-</LinearLayout>
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="80dp"
+        android:background="#111"
+        app:layout_constraintBottom_toTopOf="@+id/bottomBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Botón Play grande (superpuesto al centro, opcional) -->
+    <ImageView
+        android:id="@+id/playButtonOverlay"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/ic_play_circle"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="@+id/videoView"
+        app:layout_constraintBottom_toBottomOf="@+id/videoView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Barra inferior de controles -->
+    <LinearLayout
+        android:id="@+id/bottomBar"
+        android:layout_width="0dp"
+        android:layout_height="80dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:padding="16dp"
+        android:background="#000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <!-- Botón Play/Pause -->
+        <ImageButton
+            android:id="@+id/playPauseButton"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_play"
+            app:tint="#fff" />
+
+        <!-- Tiempo actual / duración -->
+        <TextView
+            android:id="@+id/timeText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="00:00 / 24:00"
+            android:textColor="#fff"
+            android:textSize="14sp"
+            android:layout_marginStart="12dp"/>
+
+        <!-- Progreso -->
+        <SeekBar
+            android:id="@+id/seekBar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:progress="0"
+            android:progressTint="#e50914"
+            android:thumbTint="#e50914"
+            android:max="100" />
+
+        <!-- Botón Fullscreen -->
+        <ImageButton
+            android:id="@+id/fullscreenButton"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_fullscreen"
+            app:tint="#fff" />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
