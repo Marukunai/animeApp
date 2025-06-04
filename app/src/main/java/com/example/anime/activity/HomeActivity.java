@@ -1,9 +1,11 @@
-package com.example.anime;
+package com.example.anime.activity;
 
 import android.os.Bundle;
 import android.widget.Switch;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.anime.R;
 
 public class HomeActivity extends AppCompatActivity {
 

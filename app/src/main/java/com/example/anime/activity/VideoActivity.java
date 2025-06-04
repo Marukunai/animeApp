@@ -1,4 +1,4 @@
-package com.example.anime;
+package com.example.anime.activity;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -13,11 +13,12 @@ import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.MediaController;
-import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
 import androidx.annotation.NonNull;
+
+import com.example.anime.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;

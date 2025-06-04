@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.example.anime.FavoritosActivity;
+import com.example.anime.activity.FavoritosActivity;
 import com.example.anime.R;
 
 public class ProfileFragment extends Fragment {

@@ -1,4 +1,4 @@
-package com.example.anime;
+package com.example.anime.activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -11,6 +11,8 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.anime.R;
 
 public class RegisterActivity extends AppCompatActivity {
     private Switch switchThemeRegister;

@@ -1,4 +1,4 @@
-package com.example.anime;
+package com.example.anime.activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.anime.R;
 
 import org.json.JSONObject;
 

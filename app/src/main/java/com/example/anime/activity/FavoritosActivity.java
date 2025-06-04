@@ -1,9 +1,10 @@
-package com.example.anime;
+package com.example.anime.activity;
 
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.anime.R;
 import com.example.anime.ui.favoritos.FavoritosFragment;
 
 public class FavoritosActivity extends AppCompatActivity {
@@ -16,7 +17,7 @@ public class FavoritosActivity extends AppCompatActivity {
         if (savedInstanceState == null) {
             FavoritosFragment fragment = new FavoritosFragment();
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.replace(R.id.fragment_container_favoritos, fragment);
+            transaction.replace(R.id.fragment_favoritos, fragment);
             transaction.commit();
         }
     }

@@ -16,7 +16,7 @@
 
         <!-- MainActivity (si la usas como pantalla inicial) -->
         <activity
-            android:name=".MainActivity"
+            android:name=".activity.MainActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.Anime.NoActionBar">
@@ -28,14 +28,14 @@
 
         <!-- LoginActivity (pantalla de inicio de sesión) -->
         <activity
-            android:name=".LoginActivity"
+            android:name=".activity.LoginActivity"
             android:exported="true"
             android:label="Login"
             android:theme="@style/Theme.Anime.NoActionBar"/>
 
         <!-- RegisterActivity (pantalla de registro) -->
         <activity
-            android:name=".RegisterActivity"
+            android:name=".activity.RegisterActivity"
             android:exported="true"
             android:label="Register"
             android:theme="@style/Theme.Anime.NoActionBar"/>
