@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- Header -->
+    <!-- Header con título y toggle -->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"
@@ -34,7 +34,7 @@
             tools:ignore="UseSwitchCompatOrMaterialXml" />
     </RelativeLayout>
 
-    <!-- Lista de favoritos -->
+    <!-- RecyclerView para los animes favoritos -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerFavoritos"
         android:layout_width="match_parent"

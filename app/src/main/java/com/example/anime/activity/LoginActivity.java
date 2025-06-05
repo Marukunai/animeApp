@@ -3,22 +3,22 @@ package com.example.anime.activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.anime.R;
+import com.example.anime.api.AnimeApiService;
+import com.example.anime.api.ApiClient;
+import com.example.anime.model.Usuario;
 
-import org.json.JSONObject;
-
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.Scanner;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
+
     private Switch switchTheme;
     private View rootView;
     private boolean isDarkMode = true;
@@ -32,7 +32,6 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        switchTheme = findViewById(R.id.switchTheme);
         rootView = findViewById(android.R.id.content);
         editTextEmail = findViewById(R.id.etUsuario);
         editTextPassword = findViewById(R.id.etContrasena);
@@ -58,9 +57,9 @@ public class LoginActivity extends AppCompatActivity {
             String password = editTextPassword.getText().toString();
 
             if (email.isEmpty() || password.isEmpty()) {
-                Toast.makeText(LoginActivity.this, "Completa todos los campos", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Completa todos los campos", Toast.LENGTH_SHORT).show();
             } else {
-                new LoginTask().execute(email, password);
+                realizarLogin(email, password);
             }
         });
     }
@@ -69,54 +68,35 @@ public class LoginActivity extends AppCompatActivity {
         rootView.setBackgroundColor(isDarkMode ? Color.BLACK : Color.WHITE);
     }
 
-    private class LoginTask extends AsyncTask<String, Void, Boolean> {
-        @Override
-        protected Boolean doInBackground(String... params) {
-            try {
-                String email = params[0];
-                String password = params[1];
+    private void realizarLogin(String email, String password) {
+        AnimeApiService apiService = ApiClient.getClient().create(AnimeApiService.class);
+        Call<Usuario> call = apiService.login(email, password);
 
-                URL url = new URL("http://10.0.2.2:8080/usuarios/login");
-                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                conn.setRequestMethod("POST");
-                conn.setRequestProperty("Content-Type", "application/json");
-                conn.setDoOutput(true);
+        call.enqueue(new Callback<Usuario>() {
+            @Override
+            public void onResponse(Call<Usuario> call, Response<Usuario> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    Usuario usuario = response.body();
 
-                JSONObject jsonParam = new JSONObject();
-                jsonParam.put("email", email);
-                jsonParam.put("password", password);
+                    // Guardar el ID del usuario
+                    SharedPreferences prefs = getSharedPreferences("settings", MODE_PRIVATE);
+                    prefs.edit()
+                            .putBoolean("isLoggedIn", true)
+                            .putInt("userId", usuario.getId())
+                            .apply();
 
-                OutputStream os = conn.getOutputStream();
-                os.write(jsonParam.toString().getBytes());
-                os.flush();
-                os.close();
-
-                int responseCode = conn.getResponseCode();
-                if (responseCode == 200) {
-                    Scanner scanner = new Scanner(conn.getInputStream());
-                    String response = scanner.useDelimiter("\\A").next();
-                    scanner.close();
-
-                    JSONObject json = new JSONObject(response);
-                    return json.getBoolean("success");
+                    Toast.makeText(LoginActivity.this, "Inicio de sesión correcto", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                    finish();
+                } else {
+                    Toast.makeText(LoginActivity.this, "Credenciales incorrectas", Toast.LENGTH_SHORT).show();
                 }
-            } catch (Exception e) {
-                e.printStackTrace();
             }
-            return false;
-        }
 
-        @Override
-        protected void onPostExecute(Boolean success) {
-            if (success) {
-                Toast.makeText(LoginActivity.this, "Inicio de sesión correcto", Toast.LENGTH_SHORT).show();
-                SharedPreferences prefs = getSharedPreferences("settings", MODE_PRIVATE);
-                prefs.edit().putBoolean("isLoggedIn", true).apply();
-                startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                finish();
-            } else {
-                Toast.makeText(LoginActivity.this, "Credenciales incorrectas", Toast.LENGTH_SHORT).show();
+            @Override
+            public void onFailure(Call<Usuario> call, Throwable t) {
+                Toast.makeText(LoginActivity.this, "Error de conexión", Toast.LENGTH_SHORT).show();
             }
-        }
+        });
     }
 }

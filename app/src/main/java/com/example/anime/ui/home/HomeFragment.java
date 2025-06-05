@@ -75,6 +75,12 @@ public class HomeFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        cargarAnimesDesdeApi(); // Refresca lista cuando el fragmento vuelve a ser visible
+    }
+
     private void cargarAnimesDesdeApi() {
         AnimeApiService apiService = ApiClient.getClient().create(AnimeApiService.class);
         int userId = obtenerUserId();

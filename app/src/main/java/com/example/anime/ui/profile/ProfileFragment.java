@@ -1,6 +1,8 @@
 package com.example.anime.ui.profile;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +14,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.anime.activity.FavoritosActivity;
 import com.example.anime.R;
+import com.example.anime.activity.LoginActivity;
 
 public class ProfileFragment extends Fragment {
 
@@ -31,8 +34,17 @@ public class ProfileFragment extends Fragment {
         });
 
         btnCerrarSesion.setOnClickListener(v -> {
-            getActivity().finish(); // o lógica de logout
+            SharedPreferences prefs = requireActivity().getSharedPreferences("settings", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.clear();
+            editor.apply();
+
+            Intent intent = new Intent(getActivity(), LoginActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+            requireActivity().finish();
         });
+
 
         return view;
     }

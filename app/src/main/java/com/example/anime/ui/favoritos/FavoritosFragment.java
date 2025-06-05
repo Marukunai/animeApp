@@ -1,6 +1,9 @@
 package com.example.anime.ui.favoritos;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,14 +17,22 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.anime.R;
+import com.example.anime.api.AnimeApiService;
+import com.example.anime.api.ApiClient;
+import com.example.anime.model.Anime;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class FavoritosFragment extends Fragment {
 
     private RecyclerView recyclerView;
-
-    public FavoritosFragment() {
-        // Constructor vacío
-    }
+    private FavoritosAdapter adapter;
+    private List<Anime> listaActual = new ArrayList<>();
 
     @Nullable
     @Override
@@ -33,9 +44,66 @@ public class FavoritosFragment extends Fragment {
         recyclerView = view.findViewById(R.id.recyclerFavoritos);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        // Adaptador falso de ejemplo
-        recyclerView.setAdapter(new FavoritosAdapter());
+        adapter = new FavoritosAdapter(anime -> quitarFavorito(anime));
+        recyclerView.setAdapter(adapter);
+
+        cargarFavoritosDesdeApi();
 
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        cargarFavoritosDesdeApi(); // Refresca lista cuando el fragmento vuelve a ser visible
+    }
+
+    private void cargarFavoritosDesdeApi() {
+        int userId = obtenerUserId();
+
+        AnimeApiService apiService = ApiClient.getClient().create(AnimeApiService.class);
+        Call<List<Anime>> call = apiService.getUserFavorites(userId);
+
+        call.enqueue(new Callback<List<Anime>>() {
+            @Override
+            public void onResponse(Call<List<Anime>> call, Response<List<Anime>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    listaActual = response.body();
+                    adapter.actualizarLista(response.body());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Anime>> call, Throwable t) {
+                Log.e("Favoritos", "Error al obtener favoritos: " + t.getMessage());
+            }
+        });
+    }
+
+    private int obtenerUserId() {
+        SharedPreferences prefs = requireActivity().getSharedPreferences("settings", Context.MODE_PRIVATE);
+        return prefs.getInt("userId", -1);
+    }
+
+    private void quitarFavorito(Anime anime) {
+        int userId = obtenerUserId();
+
+        AnimeApiService apiService = ApiClient.getClient().create(AnimeApiService.class);
+        Call<Void> call = apiService.removeFavorite(userId, anime.getId());
+
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.isSuccessful()) {
+                    listaActual.remove(anime);
+                    adapter.actualizarLista(listaActual);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Log.e("Favoritos", "Error al eliminar favorito: " + t.getMessage());
+            }
+        });
     }
 }

@@ -9,9 +9,29 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.anime.model.Anime;
+import java.util.ArrayList;
+import java.util.List;
+
 import com.example.anime.R;
 
 public class FavoritosAdapter extends RecyclerView.Adapter<FavoritosAdapter.FavoritoViewHolder> {
+
+    public interface OnQuitarFavoritoListener {
+        void onQuitarFavorito(Anime anime);
+    }
+
+    private List<Anime> listaFavoritos = new ArrayList<>();
+    private OnQuitarFavoritoListener listener;
+
+    public FavoritosAdapter(OnQuitarFavoritoListener listener) {
+        this.listener = listener;
+    }
+
+    public void actualizarLista(List<Anime> nuevaLista) {
+        listaFavoritos = nuevaLista;
+        notifyDataSetChanged();
+    }
 
     @NonNull
     @Override
@@ -23,21 +43,22 @@ public class FavoritosAdapter extends RecyclerView.Adapter<FavoritosAdapter.Favo
 
     @Override
     public void onBindViewHolder(@NonNull FavoritoViewHolder holder, int position) {
-        // Datos de ejemplo (reemplazar con tus datos reales)
-        holder.txtNombre.setText("Nombre del Anime " + (position + 1));
-        holder.txtCategoria.setText("Categoría");
+        Anime anime = listaFavoritos.get(position);
+        holder.txtNombre.setText(anime.getName());
+        holder.txtCategoria.setText(anime.getGenre());
+        holder.iconCorazon.setOnClickListener(v -> {
+            listener.onQuitarFavorito(anime);
+        });
     }
 
     @Override
     public int getItemCount() {
-        return 3; // número de ítems ficticios
+        return listaFavoritos.size();
     }
 
     static class FavoritoViewHolder extends RecyclerView.ViewHolder {
         ImageView imgAnime;
-        TextView txtNombre;
-        TextView txtCategoria;
-        TextView iconCorazon;
+        TextView txtNombre, txtCategoria, iconCorazon;
 
         FavoritoViewHolder(View itemView) {
             super(itemView);

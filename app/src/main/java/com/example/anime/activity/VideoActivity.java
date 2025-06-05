@@ -81,7 +81,6 @@ public class VideoActivity extends Activity {
                 bottomBar.setVisibility(View.VISIBLE);
             }
 
-            // Animación (presupone que ya tienes tus animaciones definidas)
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         });
 
@@ -93,7 +92,7 @@ public class VideoActivity extends Activity {
                     handler.removeCallbacks(hideControlsRunnable);
                     handler.postDelayed(hideControlsRunnable, 3000);
                 }
-                videoView.performClick(); // ✅ aquí la llamada correcta
+                videoView.performClick();
             }
             return true;
         });

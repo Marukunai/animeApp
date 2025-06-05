@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
+
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -14,11 +15,11 @@
         android:theme="@style/Theme.Anime"
         tools:targetApi="31">
 
-        <!-- MainActivity (si la usas como pantalla inicial) -->
+        <!-- LoginActivity: inicia la app -->
         <activity
-            android:name=".activity.MainActivity"
+            android:name=".activity.LoginActivity"
             android:exported="true"
-            android:label="@string/app_name"
+            android:label="Login"
             android:theme="@style/Theme.Anime.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,21 +27,54 @@
             </intent-filter>
         </activity>
 
-        <!-- LoginActivity (pantalla de inicio de sesión) -->
-        <activity
-            android:name=".activity.LoginActivity"
-            android:exported="true"
-            android:label="Login"
-            android:theme="@style/Theme.Anime.NoActionBar"/>
-
-        <!-- RegisterActivity (pantalla de registro) -->
+        <!-- RegisterActivity -->
         <activity
             android:name=".activity.RegisterActivity"
             android:exported="true"
             android:label="Register"
-            android:theme="@style/Theme.Anime.NoActionBar"/>
+            android:theme="@style/Theme.Anime.NoActionBar" />
 
+        <!-- HomeActivity -->
+        <activity
+            android:name=".activity.HomeActivity"
+            android:exported="true"
+            android:label="Home"
+            android:theme="@style/Theme.Anime.NoActionBar" />
 
+        <!-- AnimeActivity (detalle de anime + episodios) -->
+        <activity
+            android:name=".activity.AnimeActivity"
+            android:exported="true"
+            android:label="Anime"
+            android:theme="@style/Theme.Anime.NoActionBar" />
+
+        <!-- VideoActivity (pantalla de reproducción) -->
+        <activity
+            android:name=".activity.VideoActivity"
+            android:exported="true"
+            android:label="Video"
+            android:theme="@style/Theme.Anime.NoActionBar" />
+
+        <!-- Perfil -->
+        <activity
+            android:name=".activity.ProfileActivity"
+            android:exported="true"
+            android:label="Perfil"
+            android:theme="@style/Theme.Anime.NoActionBar" />
+
+        <!-- Favoritos -->
+        <activity
+            android:name=".activity.FavoritosActivity"
+            android:exported="true"
+            android:label="Favoritos"
+            android:theme="@style/Theme.Anime.NoActionBar" />
+
+        <!-- MainActivity (pruebas) -->
+        <activity
+            android:name=".activity.MainActivity"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.Anime.NoActionBar" />
 
     </application>
 
