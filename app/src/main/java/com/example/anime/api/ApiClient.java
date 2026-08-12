@@ -4,7 +4,8 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiClient {
-    private static final String BASE_URL = "http://TU_IP:PUERTO/"; // Cambia esto
+    // Reemplaza 8080 por el puerto real de tu servidor backend
+    private static final String BASE_URL = "http://10.0.2.2:3306/"; // Cambia esto
     private static Retrofit retrofit;
 
     public static Retrofit getClient() {

@@ -16,6 +16,16 @@
         android:textColor="@color/white"
         android:layout_marginBottom="20dp"/>
 
+    <!-- AÑADE ESTE SWITCH -->
+    <Switch
+        android:id="@+id/switchTheme"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Modo Oscuro "
+        android:textColor="@color/white"
+        android:checked="true"
+        android:layout_marginBottom="20dp" />
+
     <EditText
         android:id="@+id/etUsuario"
         android:layout_width="match_parent"

@@ -33,6 +33,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         rootView = findViewById(android.R.id.content);
+        switchTheme = findViewById(R.id.switchTheme);
         editTextEmail = findViewById(R.id.etUsuario);
         editTextPassword = findViewById(R.id.etContrasena);
         btnIniciarSesion = findViewById(R.id.btnIniciarSesion);
