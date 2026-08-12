@@ -35,7 +35,6 @@ public class LoginActivity extends AppCompatActivity {
         editTextPassword = findViewById(R.id.etContrasena);
         Button btnIniciarSesion = findViewById(R.id.btnIniciarSesion);
         TextView tvRegistrar = findViewById(R.id.tvRegistrar);
-        switchTheme = findViewById(R.id.switchTheme);
 
         SharedPreferences preferences = getSharedPreferences("settings", MODE_PRIVATE);
         isDarkMode = preferences.getBoolean("darkMode", true);

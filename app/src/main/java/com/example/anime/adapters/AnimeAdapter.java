@@ -2,6 +2,9 @@ package com.example.anime.adapters;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +15,13 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.example.anime.R;
+import com.example.anime.activity.AnimeActivity;
 import com.example.anime.model.Anime;
 
 import java.util.ArrayList;
@@ -46,7 +55,7 @@ public class AnimeAdapter extends RecyclerView.Adapter<AnimeAdapter.AnimeViewHol
     @NonNull
     @Override
     public AnimeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_favorito, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.sample_anime, parent, false);
         return new AnimeViewHolder(view);
     }
 
@@ -55,6 +64,24 @@ public class AnimeAdapter extends RecyclerView.Adapter<AnimeAdapter.AnimeViewHol
         Anime anime = animeList.get(position);
         holder.nombre.setText(anime.getName());
         holder.categoria.setText(anime.getGenre());
+
+        Glide.with(context)
+                .load(anime.getImage())
+                .placeholder(R.drawable.narutoshippuden)
+                .error(android.R.drawable.ic_menu_report_image)
+                .listener(new RequestListener<Drawable>() {
+                    @Override
+                    public boolean onLoadFailed(GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                        Log.e("GlideLoad", "Fallo cargando " + anime.getImage(), e);
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                        return false;
+                    }
+                })
+                .into(holder.imagen);
 
         if (anime.isFavorito()) {
             holder.btnCorazon.setImageResource(R.drawable.ic_heart_filled);
@@ -66,6 +93,19 @@ public class AnimeAdapter extends RecyclerView.Adapter<AnimeAdapter.AnimeViewHol
             if (listener != null) {
                 listener.onFavoritoClick(anime);
             }
+        });
+
+        holder.itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(context, AnimeActivity.class);
+            intent.putExtra("animeId", anime.getId());
+            intent.putExtra("titulo", anime.getName());
+            intent.putExtra("nombreJapones", anime.getOriginalName());
+            intent.putExtra("genero", anime.getGenre());
+            intent.putExtra("anio", String.valueOf(anime.getYear()));
+            intent.putExtra("pg", anime.getRating());
+            intent.putExtra("sinopsis", anime.getDescription());
+            intent.putExtra("imagenUrl", anime.getImage());
+            context.startActivity(intent);
         });
     }
 
@@ -100,7 +140,7 @@ public class AnimeAdapter extends RecyclerView.Adapter<AnimeAdapter.AnimeViewHol
             super(itemView);
             imagen = itemView.findViewById(R.id.imgAnime);
             nombre = itemView.findViewById(R.id.txtNombreAnime);
-            categoria = itemView.findViewById(R.id.txtCategoria);
+            categoria = itemView.findViewById(R.id.txtCategoriaAnime);
             btnCorazon = itemView.findViewById(R.id.btnFavorito);
         }
     }

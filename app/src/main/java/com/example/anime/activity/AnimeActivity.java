@@ -48,6 +48,7 @@ public class AnimeActivity extends AppCompatActivity {
 
         // Vincular vistas
         tvTitulo = findViewById(R.id.tvAnimeTitulo);
+        tvNombreJapones = findViewById(R.id.tvNombreJapones);
         tvGenero = findViewById(R.id.tvGenero);
         tvAnio = findViewById(R.id.tvAnio);
         tvPG = findViewById(R.id.tvPG);
@@ -83,6 +84,7 @@ public class AnimeActivity extends AppCompatActivity {
         }
 
         toggleDarkLight = findViewById(R.id.toggleDarkLight);
+        toggleThumb = findViewById(R.id.toggleThumb);
         SharedPreferences preferences = getSharedPreferences("settings", MODE_PRIVATE);
         isDarkMode = preferences.getBoolean("darkMode", true);
         applyTheme();

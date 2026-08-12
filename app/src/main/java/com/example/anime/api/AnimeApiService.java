@@ -31,13 +31,13 @@ public interface AnimeApiService {
     Call<Void> removeFavorite(@Path("userId") int userId, @Path("animeId") int animeId);
 
     @FormUrlEncoded
-    @POST("/login")
+    @POST("usuarios/login")
     Call<Usuario> login(
             @Field("email") String email,
             @Field("password") String password
     );
 
-    @POST("/register")
+    @POST("usuarios")
     Call<Usuario> createUsuario(@Body Usuario usuario);
 
     @GET("/usuarios/{id}")

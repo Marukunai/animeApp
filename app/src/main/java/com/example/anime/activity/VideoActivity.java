@@ -16,18 +16,7 @@ import android.widget.MediaController;
 import android.widget.Toast;
 import android.widget.VideoView;
 
-import androidx.annotation.NonNull;
-
 import com.example.anime.R;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 
 public class VideoActivity extends Activity {
 
@@ -37,8 +26,6 @@ public class VideoActivity extends Activity {
     private boolean isFullscreen = false;
 
     private View extraInfoLayout;
-
-    private static final String API_URL = "http://TU_IP_O_DOMINIO:PUERTO/episodios/";
 
     private final Handler handler = new Handler();
     private final Runnable hideControlsRunnable = () -> bottomBar.setVisibility(View.GONE);
@@ -54,14 +41,14 @@ public class VideoActivity extends Activity {
         fullscreenButton = findViewById(R.id.fullscreenButton);
         extraInfoLayout = findViewById(R.id.infoContainer);
 
-        int episodioId = getIntent().getIntExtra("episodio_id", -1);
-        if (episodioId == -1) {
+        String videoUrl = getIntent().getStringExtra("videoUrl");
+        if (videoUrl == null || videoUrl.isEmpty()) {
             Toast.makeText(this, "Episodio no válido", Toast.LENGTH_SHORT).show();
             finish();
             return;
         }
 
-        cargarVideoDesdeAPI(episodioId);
+        reproducirVideo(videoUrl);
 
         // Manejo de pantalla completa
         fullscreenButton.setOnClickListener(v -> {
@@ -105,39 +92,6 @@ public class VideoActivity extends Activity {
             }
         });
 
-    }
-
-    private void cargarVideoDesdeAPI(int episodioId) {
-        new Thread(() -> {
-            try {
-                JSONObject episodio = getURL(episodioId);
-                String videoUrl = episodio.getString("url");
-
-                runOnUiThread(() -> reproducirVideo(videoUrl));
-            } catch (Exception e) {
-                e.printStackTrace();
-                runOnUiThread(() -> {
-                    Toast.makeText(this, "Error cargando el video", Toast.LENGTH_SHORT).show();
-                    finish();
-                });
-            }
-        }).start();
-    }
-
-    @NonNull
-    private static JSONObject getURL(int episodioId) throws IOException, JSONException {
-        URL url = new URL(API_URL + episodioId);
-        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-        conn.setRequestMethod("GET");
-
-        BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-        StringBuilder jsonBuilder = new StringBuilder();
-        String line;
-        while ((line = reader.readLine()) != null) {
-            jsonBuilder.append(line);
-        }
-
-        return new JSONObject(jsonBuilder.toString());
     }
 
     private void reproducirVideo(String videoUrl) {
