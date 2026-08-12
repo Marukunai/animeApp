@@ -2,28 +2,24 @@ package com.example.anime.model;
 
 public class Video {
     private int id;
-    private int animeId;
-    private String titulo;
-    private String descripcion;
-    private int numero;
+    private int idAnime;
+    private String episode;
     private String url;
+    private String image;
 
     // Getters y Setters
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
 
-    public int getAnimeId() { return animeId; }
-    public void setAnimeId(int animeId) { this.animeId = animeId; }
+    public int getIdAnime() { return idAnime; }
+    public void setIdAnime(int idAnime) { this.idAnime = idAnime; }
 
-    public String getTitulo() { return "Episodio " + titulo; }
-    public void setTitulo(String titulo) { this.titulo = titulo; }
-
-    public String getDescripcion() { return descripcion; }
-    public void setDescripcion(String descripcion) { this.descripcion = descripcion; }
-
-    public int getNumero() { return numero; }
-    public void setNumero(int numero) { this.numero = numero; }
+    public String getEpisode() { return episode; }
+    public void setEpisode(String episode) { this.episode = episode; }
 
     public String getUrl() { return url; }
     public void setUrl(String url) { this.url = url; }
+
+    public String getImage() { return image; }
+    public void setImage(String image) { this.image = image; }
 }

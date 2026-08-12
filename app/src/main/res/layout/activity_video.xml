@@ -1,97 +1,180 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="#000"
+    android:id="@+id/rootLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#000">
 
-    <!-- VideoView (parte superior) -->
-    <VideoView
-        android:id="@+id/videoView"
+    <!-- Marco del reproductor: 16:9, se expande a pantalla completa en modo fullscreen -->
+    <FrameLayout
+        android:id="@+id/playerFrame"
         android:layout_width="0dp"
-        android:layout_height="220dp"
+        android:layout_height="0dp"
+        app:layout_constraintDimensionRatio="16:9"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent">
 
-    <!-- Información del video -->
+        <VideoView
+            android:id="@+id/videoView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <WebView
+            android:id="@+id/webView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone" />
+
+        <ProgressBar
+            android:id="@+id/loadingSpinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:indeterminateTint="@color/pink" />
+
+        <Button
+            android:id="@+id/btnAbrirNavegador"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="60dp"
+            android:text="¿Tarda mucho? Abrir en el navegador"
+            android:textAllCaps="false"
+            android:textSize="12sp"
+            android:backgroundTint="@color/dark_gray"
+            android:textColor="#FFFFFF"
+            android:visibility="gone" />
+
+        <!-- Barra superior: volver + título -->
+        <LinearLayout
+            android:id="@+id/topBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingStart="4dp"
+            android:paddingEnd="16dp"
+            android:paddingVertical="4dp"
+            android:background="@drawable/gradient_top_overlay">
+
+            <ImageButton
+                android:id="@+id/btnBack"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@android:color/transparent"
+                android:src="@drawable/ic_arrow_back"
+                android:contentDescription="Volver" />
+
+            <TextView
+                android:id="@+id/tvPlayerTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="4dp"
+                android:text="Título · Episodio"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+                android:textSize="14sp"
+                android:singleLine="true"
+                android:ellipsize="end" />
+        </LinearLayout>
+
+        <!-- Barra inferior de controles: solo aplica a vídeo directo (VideoView) -->
+        <LinearLayout
+            android:id="@+id/bottomControls"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="4dp"
+            android:background="@drawable/gradient_bottom_overlay">
+
+            <ImageButton
+                android:id="@+id/btnPlayPause"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@android:color/transparent"
+                android:src="@drawable/ic_play"
+                app:tint="#fff"
+                android:contentDescription="Reproducir o pausar" />
+
+            <TextView
+                android:id="@+id/tvTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="00:00 / 00:00"
+                android:textColor="#fff"
+                android:textSize="12sp"
+                android:layout_marginStart="8dp" />
+
+            <SeekBar
+                android:id="@+id/seekBar"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="12dp"
+                android:progress="0"
+                android:progressTint="@color/pink"
+                android:thumbTint="@color/pink"
+                android:max="100" />
+
+            <ImageButton
+                android:id="@+id/btnFullscreen"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@android:color/transparent"
+                android:src="@drawable/ic_fullscreen"
+                app:tint="#fff"
+                android:contentDescription="Pantalla completa" />
+        </LinearLayout>
+    </FrameLayout>
+
+    <!-- Info del anime/episodio, solo visible fuera de fullscreen -->
     <LinearLayout
-        android:id="@+id/infoContainer"
+        android:id="@+id/infoSection"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="16dp"
-        app:layout_constraintTop_toBottomOf="@id/videoView"
+        app:layout_constraintTop_toBottomOf="@id/playerFrame"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
         <TextView
-            android:id="@+id/animeTitle"
+            android:id="@+id/tvAnimeTitleInfo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Título del Anime"
             android:textColor="#FFFFFF"
             android:textSize="18sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/episodeInfo"
+            android:id="@+id/tvEpisodeInfo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Temporada 1 - Episodio 1"
-            android:textColor="#CCCCCC"
+            android:text="Episodio 1"
+            android:textColor="@color/pink"
             android:textSize="14sp"
-            android:layout_marginTop="4dp"/>
+            android:layout_marginTop="4dp" />
     </LinearLayout>
 
-    <!-- Barra inferior de controles -->
-    <LinearLayout
-        android:id="@+id/bottomBar"
+    <!-- Host para el fullscreen HTML5 nativo del reproductor embebido (ej. botón fullscreen propio de Mega) -->
+    <FrameLayout
+        android:id="@+id/fullscreenContainer"
         android:layout_width="0dp"
-        android:layout_height="80dp"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:padding="16dp"
+        android:layout_height="0dp"
         android:background="#000"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintEnd_toEndOf="parent" />
 
-        <ImageButton
-            android:id="@+id/playPauseButton"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:background="@android:color/transparent"
-            android:src="@drawable/ic_play"
-            app:tint="#fff" />
-
-        <TextView
-            android:id="@+id/timeText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="00:00 / 24:00"
-            android:textColor="#fff"
-            android:textSize="14sp"
-            android:layout_marginStart="12dp"/>
-
-        <SeekBar
-            android:id="@+id/seekBar"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:progress="0"
-            android:progressTint="#e50914"
-            android:thumbTint="#e50914"
-            android:max="100" />
-
-        <ImageButton
-            android:id="@+id/fullscreenButton"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:background="@android:color/transparent"
-            android:src="@drawable/ic_fullscreen"
-            app:tint="#fff" />
-    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

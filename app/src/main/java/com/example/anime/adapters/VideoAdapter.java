@@ -19,10 +19,12 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoViewHol
 
     private Context context;
     private List<Video> lista;
+    private String animeTitulo;
 
-    public VideoAdapter(Context context, List<Video> lista) {
+    public VideoAdapter(Context context, List<Video> lista, String animeTitulo) {
         this.context = context;
         this.lista = lista;
+        this.animeTitulo = animeTitulo;
     }
 
     @NonNull
@@ -35,12 +37,14 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoViewHol
     @Override
     public void onBindViewHolder(@NonNull VideoViewHolder holder, int position) {
         Video video = lista.get(position);
-        holder.tvNumero.setText("EP" + video.getNumero() + ": " + video.getTitulo());
-        holder.tvDescripcion.setText(video.getDescripcion());
+        holder.tvNumero.setText("Episodio " + video.getEpisode());
+        holder.tvDescripcion.setVisibility(View.GONE);
 
         holder.itemView.setOnClickListener(v -> {
             Intent intent = new Intent(context, VideoActivity.class);
             intent.putExtra("videoUrl", video.getUrl());
+            intent.putExtra("animeTitulo", animeTitulo);
+            intent.putExtra("episodio", video.getEpisode());
             context.startActivity(intent);
         });
     }

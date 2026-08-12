@@ -40,6 +40,7 @@ public class AnimeActivity extends AppCompatActivity {
     private RelativeLayout toggleDarkLight;
     private View toggleThumb;
     private boolean isDarkMode;
+    private String animeTitulo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +71,7 @@ public class AnimeActivity extends AppCompatActivity {
         String imagenUrl = getIntent().getStringExtra("imagenUrl");
 
         // Mostrar datos
+        animeTitulo = titulo;
         tvTitulo.setText(titulo);
         tvNombreJapones.setText(nombreJapones);
         tvGenero.setText("Género: " + genero);
@@ -121,7 +123,7 @@ public class AnimeActivity extends AppCompatActivity {
             public void onResponse(Call<List<Video>> call, Response<List<Video>> response) {
                 progressBar.setVisibility(View.GONE);  // Ocultar al completar
                 if (response.isSuccessful() && response.body() != null) {
-                    videoAdapter = new VideoAdapter(AnimeActivity.this, response.body());
+                    videoAdapter = new VideoAdapter(AnimeActivity.this, response.body(), animeTitulo);
                     recyclerEpisodios.setAdapter(videoAdapter);
                 } else {
                     Toast.makeText(AnimeActivity.this, "No se encontraron episodios", Toast.LENGTH_SHORT).show();
