@@ -7,6 +7,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.anime.R;
 
+/**
+ * Pantalla de inicio simplificada, sin llamadas a la API todavía; el switch
+ * de tema es solo un placeholder ("Modo claro (a implementar)").
+ */
 public class HomeActivity extends AppCompatActivity {
 
     private Switch switchTheme;

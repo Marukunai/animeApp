@@ -20,6 +20,10 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+/**
+ * Perfil del usuario logueado: muestra nombre/email, y da acceso a editar
+ * perfil, ver favoritos y cerrar sesión (borra "settings" de SharedPreferences).
+ */
 public class ProfileActivity extends AppCompatActivity {
 
     private TextView txtNombreUsuario, txtEmail;
@@ -64,6 +68,7 @@ public class ProfileActivity extends AppCompatActivity {
         });
     }
 
+    /** GET /usuarios/{id} y rellena nombre/email en pantalla. */
     private void cargarDatosUsuario(int userId) {
         AnimeApiService apiService = ApiClient.getClient().create(AnimeApiService.class);
         Call<Usuario> call = apiService.obtenerUsuarioPorId(userId);

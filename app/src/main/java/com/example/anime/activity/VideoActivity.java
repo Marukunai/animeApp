@@ -32,6 +32,21 @@ import com.example.anime.R;
 
 import java.util.Locale;
 
+/**
+ * Reproductor de episodios. Recibe la URL del vídeo, el título del anime y
+ * el número de episodio directamente por Intent (se los pasa VideoAdapter,
+ * ya no hace falta pedirle nada a ninguna API aquí). Según el tipo de URL
+ * usa una estrategia de reproducción distinta:
+ * <ul>
+ *   <li>mega.nz: no es un archivo de vídeo directo, así que se carga dentro
+ *   de un WebView (con soporte de pantalla completa HTML5 vía WebChromeClient)
+ *   y hay un botón de fallback para abrirlo en el navegador si tarda demasiado.</li>
+ *   <li>youtube.com / youtu.be: se abre con un Intent externo (no se intenta
+ *   embeber).</li>
+ *   <li>cualquier otra URL (mp4 directo, etc.): reproductor nativo (VideoView)
+ *   con controles propios (play/pausa, seek bar, pantalla completa).</li>
+ * </ul>
+ */
 public class VideoActivity extends Activity {
 
     private ConstraintLayout rootLayout;
@@ -57,6 +72,7 @@ public class VideoActivity extends Activity {
     private final Handler handler = new Handler();
     private final Runnable hideControlsRunnable = () -> bottomControls.setVisibility(View.GONE);
     private final Runnable showFallbackRunnable = () -> btnAbrirNavegador.setVisibility(View.VISIBLE);
+    // Refresca la seek bar y el contador de tiempo cada 500ms mientras se reproduce en el VideoView nativo.
     private final Runnable progressRunnable = new Runnable() {
         @Override
         public void run() {
@@ -157,6 +173,7 @@ public class VideoActivity extends Activity {
         });
     }
 
+    /** Decide la estrategia de reproducción según el dominio de la URL (ver Javadoc de la clase). */
     private void reproducirVideo(String videoUrl) {
         loadingSpinner.setVisibility(View.VISIBLE);
 

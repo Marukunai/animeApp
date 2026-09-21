@@ -16,6 +16,11 @@ import com.example.anime.activity.FavoritosActivity;
 import com.example.anime.R;
 import com.example.anime.activity.LoginActivity;
 
+/**
+ * Versión en Fragment del perfil: reutiliza el layout de ProfileActivity
+ * (activity_profile) pero solo implementa los botones de Favoritos y
+ * Cerrar sesión — no carga los datos del usuario como sí hace ProfileActivity.
+ */
 public class ProfileFragment extends Fragment {
 
     private Button btnFavoritos, btnCerrarSesion;

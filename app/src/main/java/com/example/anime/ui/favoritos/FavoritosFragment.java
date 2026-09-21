@@ -28,6 +28,12 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+/**
+ * Variante en Fragment (con RecyclerView propio, sin ViewModel) de la
+ * pantalla de favoritos — a diferencia de activity.FavoritosActivity, esta
+ * sí lee el userId de la clave "settings"/"userId" que usa el resto de la
+ * app, y refresca la lista cada vez que el fragment vuelve a primer plano.
+ */
 public class FavoritosFragment extends Fragment {
 
     private RecyclerView recyclerView;
@@ -58,6 +64,7 @@ public class FavoritosFragment extends Fragment {
         cargarFavoritosDesdeApi(); // Refresca lista cuando el fragmento vuelve a ser visible
     }
 
+    /** GET /favoritos/{userId}. */
     private void cargarFavoritosDesdeApi() {
         int userId = obtenerUserId();
 
@@ -85,6 +92,7 @@ public class FavoritosFragment extends Fragment {
         return prefs.getInt("userId", -1);
     }
 
+    /** DELETE /favoritos/remove/{userId}/{animeId} y actualiza la lista local si va bien. */
     private void quitarFavorito(Anime anime) {
         int userId = obtenerUserId();
 

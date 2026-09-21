@@ -15,6 +15,11 @@ import java.util.List;
 
 import com.example.anime.R;
 
+/**
+ * Adapter de RecyclerView para {@link FavoritosFragment}. Es una segunda
+ * implementación distinta a adapters.AnimeAdapter para el mismo concepto
+ * de "lista de animes favoritos"; podrían unificarse en uno solo.
+ */
 public class FavoritosAdapter extends RecyclerView.Adapter<FavoritosAdapter.FavoritoViewHolder> {
 
     public interface OnQuitarFavoritoListener {

@@ -15,6 +15,12 @@ import com.example.anime.model.Video;
 
 import java.util.List;
 
+/**
+ * Adapter de RecyclerView para la lista de episodios de un anime (usado en
+ * AnimeActivity). Al tocar un episodio abre {@link VideoActivity} pasándole
+ * la URL del vídeo directamente por Intent (VideoActivity ya no vuelve a
+ * pedirla a ningún API).
+ */
 public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoViewHolder> {
 
     private Context context;

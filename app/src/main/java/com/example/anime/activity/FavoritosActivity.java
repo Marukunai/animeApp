@@ -20,6 +20,13 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+/**
+ * Lista de animes favoritos del usuario logueado. El userId se lee de
+ * SharedPreferences "user_session"/"user_id" — nótese que el resto de la
+ * app usa "settings"/"userId" (ver LoginActivity/ProfileActivity), así que
+ * esta pantalla probablemente nunca encuentra el userId real; iría bien
+ * unificar la clave usada en toda la app.
+ */
 public class FavoritosActivity extends AppCompatActivity {
 
     private RecyclerView recyclerFavoritos;
@@ -44,6 +51,7 @@ public class FavoritosActivity extends AppCompatActivity {
         }
     }
 
+    /** GET /favoritos/{userId} y lo pinta en el RecyclerView vía AnimeAdapter. */
     private void cargarFavoritos(int userId) {
         AnimeApiService apiService = ApiClient.getClient().create(AnimeApiService.class);
         Call<List<Anime>> call = apiService.getUserFavorites(userId);

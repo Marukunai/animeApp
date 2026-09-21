@@ -17,6 +17,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+/** Edición de nombre/teléfono del usuario logueado (PUT /usuarios/{id}). */
 public class EditarPerfilActivity extends AppCompatActivity {
 
     private EditText etNombre, etTelefono;
@@ -40,6 +41,7 @@ public class EditarPerfilActivity extends AppCompatActivity {
         btnGuardar.setOnClickListener(v -> guardarCambios());
     }
 
+    /** Precarga el formulario con los datos actuales del usuario. */
     private void cargarDatosPerfil() {
         UsuarioApiService api = ApiClient.getClient().create(UsuarioApiService.class);
         Call<Usuario> call = api.getUsuarioPorId(userId);
@@ -60,6 +62,7 @@ public class EditarPerfilActivity extends AppCompatActivity {
         });
     }
 
+    /** Envía nombre/teléfono actualizados a la API. */
     private void guardarCambios() {
         String nuevoNombre = etNombre.getText().toString().trim();
         String nuevoTelefono = etTelefono.getText().toString().trim();

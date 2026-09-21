@@ -30,6 +30,12 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+/**
+ * Pantalla de detalle de un anime: recibe sus datos por Intent (extras),
+ * los pinta directamente (sin volver a pedirlos a la API) y carga la lista
+ * de episodios desde animeDB para mostrarla en un RecyclerView. El título
+ * del anime se guarda para pasárselo a VideoActivity al abrir un episodio.
+ */
 public class AnimeActivity extends AppCompatActivity {
 
     private TextView tvTitulo, tvNombreJapones, tvGenero, tvAnio, tvPG, tvSinopsis;
@@ -60,7 +66,7 @@ public class AnimeActivity extends AppCompatActivity {
 
         recyclerEpisodios.setLayoutManager(new LinearLayoutManager(this));
 
-        // Recoger datos del Intent
+        // Recoger datos del Intent (vienen ya cargados desde la pantalla anterior)
         int animeId = getIntent().getIntExtra("animeId", -1);
         String titulo = getIntent().getStringExtra("titulo");
         String nombreJapones = getIntent().getStringExtra("nombreJapones");
@@ -113,6 +119,7 @@ public class AnimeActivity extends AppCompatActivity {
     }
 
 
+    /** GET /videos/anime/{animeId} y lo pinta en el RecyclerView vía VideoAdapter (le pasa animeTitulo para VideoActivity). */
     private void cargarEpisodiosDesdeApi(int animeId) {
         progressBar.setVisibility(View.VISIBLE);  // Mostrar mientras carga
 

@@ -18,6 +18,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+/** Pantalla de registro de un nuevo usuario contra la API. */
 public class RegisterActivity extends AppCompatActivity {
 
     private Switch switchThemeRegister;
@@ -85,6 +86,7 @@ public class RegisterActivity extends AppCompatActivity {
         rootView.setBackgroundColor(isDarkMode ? Color.BLACK : Color.WHITE);
     }
 
+    /** Llama a AnimeApiService.createUsuario(); si va bien, vuelve a la pantalla de login. */
     private void registrarUsuario(Usuario usuario) {
         AnimeApiService apiService = ApiClient.getClient().create(AnimeApiService.class);
         Call<Usuario> call = apiService.createUsuario(usuario);

@@ -17,6 +17,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.anime.databinding.ActivityMainBinding;
 
+/**
+ * Contenedor con Drawer + Navigation Component para Home/Gallery/Slideshow.
+ * Es la plantilla "Navigation Drawer Activity" que genera Android Studio por
+ * defecto; sus fragments todavía muestran contenido de ejemplo, no datos
+ * reales de animeDB (a diferencia de las Activities de activity/, donde
+ * vive la lógica real de la app). El manifiesto la etiqueta como "pruebas".
+ */
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;

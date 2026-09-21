@@ -17,6 +17,11 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+/**
+ * Pantalla inicial de la app (launcher). Login contra la API y, si es
+ * correcto, guarda la sesión en SharedPreferences ("settings":
+ * isLoggedIn/userId) y navega a MainActivity.
+ */
 public class LoginActivity extends AppCompatActivity {
 
     private Switch switchTheme;
@@ -40,6 +45,7 @@ public class LoginActivity extends AppCompatActivity {
         isDarkMode = preferences.getBoolean("darkMode", true);
         applyTheme();
 
+        // Cambia de tema y persiste la preferencia
         switchTheme.setOnCheckedChangeListener((buttonView, isChecked) -> {
             isDarkMode = isChecked;
             applyTheme();
@@ -66,6 +72,7 @@ public class LoginActivity extends AppCompatActivity {
         rootView.setBackgroundColor(isDarkMode ? Color.BLACK : Color.WHITE);
     }
 
+    /** Llama a AnimeApiService.login() (POST /usuarios/login); si va bien, guarda la sesión y va a MainActivity. */
     private void realizarLogin(String email, String password) {
         AnimeApiService apiService = ApiClient.getClient().create(AnimeApiService.class);
         Call<Usuario> call = apiService.login(email, password);

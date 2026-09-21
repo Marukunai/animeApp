@@ -27,6 +27,12 @@ import com.example.anime.model.Anime;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Adapter de RecyclerView para listas de {@link Anime} (usado en Favoritos),
+ * con carga de portada vía Glide, filtrado local por nombre/género, botón de
+ * corazón para favorito ({@link OnAnimeClickListener}) y navegación a
+ * {@link AnimeActivity} al tocar un item.
+ */
 public class AnimeAdapter extends RecyclerView.Adapter<AnimeAdapter.AnimeViewHolder> {
 
     private Context context;
@@ -34,6 +40,7 @@ public class AnimeAdapter extends RecyclerView.Adapter<AnimeAdapter.AnimeViewHol
     private List<Anime> animeListFull;
     private OnAnimeClickListener listener;
 
+    /** Sustituye la lista mostrada (no la lista completa usada para filtrar). */
     @SuppressLint("NotifyDataSetChanged")
     public void actualizarLista(List<Anime> nuevaLista) {
         animeList.clear();
@@ -95,6 +102,8 @@ public class AnimeAdapter extends RecyclerView.Adapter<AnimeAdapter.AnimeViewHol
             }
         });
 
+        // Al tocar la tarjeta se abre el detalle, pasando todos los datos por Intent
+        // (AnimeActivity no vuelve a pedirlos a la API).
         holder.itemView.setOnClickListener(v -> {
             Intent intent = new Intent(context, AnimeActivity.class);
             intent.putExtra("animeId", anime.getId());
@@ -114,6 +123,7 @@ public class AnimeAdapter extends RecyclerView.Adapter<AnimeAdapter.AnimeViewHol
         return animeList.size();
     }
 
+    /** Filtra sobre la lista completa por nombre o género (búsqueda local, no llama a la API). */
     public void filtrarLista(String texto) {
         List<Anime> filtrada = new ArrayList<>();
         if (texto == null || texto.trim().isEmpty()) {
